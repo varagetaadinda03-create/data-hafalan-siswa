@@ -12,7 +12,8 @@ import {
   Table as TableIcon,
   BarChart3,
   ExternalLink,
-  Sparkles
+  Sparkles,
+  Tv
 } from 'lucide-react';
 import { SpreadsheetConfig } from '../types';
 
@@ -26,6 +27,7 @@ interface HeaderProps {
   onOpenConfig: () => void;
   onExportMasterPdf: () => void;
   onChangeInterval: (seconds: number) => void;
+  onOpenTvMode: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -38,6 +40,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenConfig,
   onExportMasterPdf,
   onChangeInterval,
+  onOpenTvMode,
 }) => {
   const [isRefreshing, setIsRefreshing] = useState(false);
 
@@ -202,6 +205,17 @@ export const Header: React.FC<HeaderProps> = ({
                 <option value={300}>Auto-sync: 5m</option>
               </select>
             </div>
+
+            {/* Mode TV / Smart Display Button */}
+            <button
+              id="btn-open-tv-mode"
+              onClick={onOpenTvMode}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-slate-950 shadow-md shadow-amber-950/40 transition-all active:scale-95 animate-pulse"
+              title="Buka Mode Tampilan TV (Rotasi 10 Detik & Jadwal Sholat Jambi)"
+            >
+              <Tv className="w-3.5 h-3.5" />
+              <span>Mode TV</span>
+            </button>
 
             {/* Refresh Button */}
             <button

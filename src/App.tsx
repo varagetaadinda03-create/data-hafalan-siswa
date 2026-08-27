@@ -22,6 +22,8 @@ import { SantriTableView } from './components/SantriTableView';
 import { SantriDetailModal } from './components/SantriDetailModal';
 import { SheetConfigModal } from './components/SheetConfigModal';
 import { PdfExportModal } from './components/PdfExportModal';
+import { TvDisplayView } from './components/TvDisplayView';
+import { PrayerTimeWidget } from './components/PrayerTimeWidget';
 
 import { 
   LayoutGrid, 
@@ -67,6 +69,7 @@ export default function App() {
   // Modal Visibility States
   const [isConfigOpen, setIsConfigOpen] = useState(false);
   const [isPdfMasterOpen, setIsPdfMasterOpen] = useState(false);
+  const [isTvModeOpen, setIsTvModeOpen] = useState(false);
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'info' | 'error' } | null>(null);
 
   const showToast = (message: string, type: 'success' | 'info' | 'error' = 'info') => {
@@ -307,11 +310,15 @@ export default function App() {
         onOpenConfig={() => setIsConfigOpen(true)}
         onExportMasterPdf={() => setIsPdfMasterOpen(true)}
         onChangeInterval={(sec) => setConfig((prev) => ({ ...prev, autoRefreshInterval: sec }))}
+        onOpenTvMode={() => setIsTvModeOpen(true)}
       />
 
       {/* Main Page Body Container */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
         
+        {/* Jadwal Sholat Kota Jambi & TV Mode Launcher Banner */}
+        <PrayerTimeWidget onOpenTvMode={() => setIsTvModeOpen(true)} />
+
         {/* KPI Statistics Summary */}
         <StatsCards
           stats={stats}
@@ -440,6 +447,19 @@ export default function App() {
         filteredSantri={filteredSantri}
         currentClassFilter={filters.kelas}
       />
+
+      {/* TV Display View (Digital Signage / Kiosk Fullscreen Mode) */}
+      {isTvModeOpen && (
+        <TvDisplayView
+          santriList={santriList}
+          onClose={() => setIsTvModeOpen(false)}
+          onSelectSantri={(santri) => {
+            setSelectedSantri(santri);
+            setIsTvModeOpen(false);
+          }}
+          sheetLastUpdated={config.lastUpdated}
+        />
+      )}
 
     </div>
   );
