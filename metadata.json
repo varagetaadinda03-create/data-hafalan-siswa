@@ -1,0 +1,6 @@
+{
+  "name": "Dashboard Monitoring Santri Real-Time",
+  "description": "Dashboard interaktif pemantauan data santri real-time dari Google Spreadsheet dengan visualisasi analitik, profil detail santri, riwayat prestasi, catatan disiplin, dan ekspor laporan PDF.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
